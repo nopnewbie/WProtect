@@ -14,37 +14,45 @@ struct build_piece
   long build_exec_size;
 }; 
 
-class BuildCodeInfo{
+class BuildCodeInfo
+{
     const char * build_exec_name;
     std::list<build_piece> list_build_exec_info;
-  public:
-    BuildCodeInfo()
-    {
-    }
+
+public:
+    typedef std::list<build_piece>::iterator iterator;
+    typedef build_piece data_type;
+
+    BuildCodeInfo() {}
+
     BuildCodeInfo(const char * _filename)
     {
         build_exec_name = _filename;
     }
-    ~BuildCodeInfo()
-    {}
+
+    virtual ~BuildCodeInfo() {}
+
     void set_filename(const char * _filename)
     {
       build_exec_name = _filename;
     }
-    typedef std::list<build_piece>::iterator iterator;
-    typedef build_piece data_type;
+
+
     iterator begin()
     {
         return list_build_exec_info.begin();
     }
+
     iterator end()
     {
         return list_build_exec_info.end();
     }
+
     void push_back(build_piece & _piece)
     {
       list_build_exec_info.push_back(_piece);
     }
+
     void for_each(void (*fuc)(iterator _iter))
     {
         for (iterator i = begin(); i != end();i++)
@@ -52,14 +60,13 @@ class BuildCodeInfo{
             fuc(i);
         }
     }
+
     const char * get_filename()
     {
       return build_exec_name;
     }
+
 };
-
-
-
 
 
 
